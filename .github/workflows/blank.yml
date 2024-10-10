@@ -1,0 +1,29 @@
+name: cloud-run-deploy-client-auth-dev
+
+on:
+
+  workflow_dispatch:
+
+env:
+  GCP_PROJECT: fan-fix-dev
+  GCP_APPLICATION: client-auth
+  GCP_APPLICATION_TYPE: clients
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Build the Docker image
+      - name: Build & Publish
+        run: |
+          export K8S_NEXT_PUBLIC_API_BASE_URL=$(echo $DEV_NEXT_PUBLIC_API_BASE_URL  | sed 's/-dev\./-k8s\./')
+          echo $K8S_NEXT_PUBLIC_API_BASE_URL
+
+      
+      #     slack-message: "*${{ env.GCP_APPLICATION }}* deployment to *Dev*:\n> Status: `${{job.status}}`\n> Diff: ${{github.event.compare}}\n> Ref: `${{github.event.ref}}`\n> Github Action: ${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}"
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
