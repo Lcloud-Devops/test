@@ -21,7 +21,7 @@ jobs:
       - name: Build & Publish
         run: |
           set -x 
-          export K8S_NEXT_PUBLIC_API_BASE_URL=$(echo "${{ vars.DEV_NEXT_PUBLIC_POST_HOG_KEY }}"  | sed 's/-dev\./-k8s\./')
+          export K8S_NEXT_PUBLIC_API_BASE_URL=$(echo "${{ vars.DEV_NEXT_PUBLIC_API_BASE_URL }}"  | sed 's/-dev\./-k8s\./')
           echo $K8S_NEXT_PUBLIC_API_BASE_URL
 
       
