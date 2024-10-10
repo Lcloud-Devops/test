@@ -24,6 +24,9 @@ jobs:
           set -x 
           export K8S_NEXT_PUBLIC_API_BASE_URL=$(echo "${{ vars.DEV_NEXT_PUBLIC_API_BASE_URL }}"  | sed 's/-dev\./-k8s\./')
           echo $K8S_NEXT_PUBLIC_API_BASE_URL
+          docker build . \
+          --build-arg="GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" \
+          -t test
 
       
       #     slack-message: "*${{ env.GCP_APPLICATION }}* deployment to *Dev*:\n> Status: `${{job.status}}`\n> Diff: ${{github.event.compare}}\n> Ref: `${{github.event.ref}}`\n> Github Action: ${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}"
