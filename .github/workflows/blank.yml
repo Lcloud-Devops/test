@@ -20,7 +20,8 @@ jobs:
       # Build the Docker image
       - name: Build & Publish
         run: |
-          export K8S_NEXT_PUBLIC_API_BASE_URL=$(echo $DEV_NEXT_PUBLIC_API_BASE_URL  | sed 's/-dev\./-k8s\./')
+          set -x 
+          export K8S_NEXT_PUBLIC_API_BASE_URL=$(echo "${{ vars.DEV_NEXT_PUBLIC_POST_HOG_KEY }}"  | sed 's/-dev\./-k8s\./')
           echo $K8S_NEXT_PUBLIC_API_BASE_URL
 
       
